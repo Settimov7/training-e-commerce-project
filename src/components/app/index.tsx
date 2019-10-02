@@ -1,11 +1,13 @@
 import React from 'react';
 
-import './App.css';
+import { HomePage } from '../homepage';
+
+import './styles.css';
 
 export const App: React.FC = () => {
 	return (
 		<div>
-			Hello World
+			<HomePage/>
 		</div>
 	);
 };
