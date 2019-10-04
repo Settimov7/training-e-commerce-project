@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { HomePage } from '../homepage';
-
-import './styles.css';
+import { HomePage } from '../../pages/homepage/homepage.component';
 
 export const App: React.FC = () => {
 	return (
