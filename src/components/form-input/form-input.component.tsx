@@ -13,7 +13,7 @@ type Props = {
 
 export const FormInput: React.FC<Props> = ({ handleChange, label, value, name, ...otherProps }) => (
     <div className='group'>
-        <input className='form-input' onChange={handleChange} name={name} {...otherProps} />
-        { label && <label className={`${value.length ? 'shrink' : ''} form-input-label`} htmlFor={name}>{label}</label> }
-    </div>
+    <input className='form-input' onChange={handleChange} name={name} value={value} {...otherProps} />
+    { label && <label className={`${value.length ? 'shrink' : ''} form-input-label`} htmlFor={name}>{label}</label> }
+</div>
 );
