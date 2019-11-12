@@ -3,7 +3,8 @@ import React from 'react';
 import './custom-button.styles.scss';
 
 type Props = {
-    type?: 'submit',
+    type?: 'submit' | 'button',
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
 }
 
 export const CustomButton: React.FC<Props> = ({ children, ...otherProps }) => (
