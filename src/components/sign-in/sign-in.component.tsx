@@ -68,8 +68,10 @@ export class SignIn extends React.Component<Props, State>{
                         label='Password'
                     />
 
-                    <CustomButton type='submit'>Sign In</CustomButton>
-                    <CustomButton type='button' onClick={signInWithGoogle}>Sign in with Google</CustomButton>
+                    <div className='buttons'>
+                        <CustomButton type='submit'>Sign In</CustomButton>
+                        <CustomButton type='button' onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google</CustomButton>
+                    </div>
                 </form>
             </div>
         )
