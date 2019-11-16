@@ -4,6 +4,10 @@ import 'firebase/auth'
 
 type DocumentReference = firebase.firestore.DocumentReference;
 
+type AdditionalInfo = {
+    [key: string]: any;
+}
+
 const config = {
     apiKey: "AIzaSyC2eXnCYvgI9s1VmCYPQh1NSMELQDzrlHI",
     authDomain: "training-e-commerce-db.firebaseapp.com",
@@ -14,7 +18,9 @@ const config = {
     appId: "1:448755092171:web:31f46111c411fa51daa94e"
 };
 
-export const createUserProfileDocument = async (userAuth: User): Promise<DocumentReference> => {
+export const createUserProfileDocument = async (userAuth: User | null, additionalInfo?: AdditionalInfo): Promise<DocumentReference | undefined> => {
+    if(!userAuth) return;
+
     const userRef = firestore.doc(`users/${userAuth.uid}`);
 
     const snapshot = await userRef.get();
@@ -28,6 +34,7 @@ export const createUserProfileDocument = async (userAuth: User): Promise<Documen
                 displayName,
                 email,
                 createdAt,
+                ...additionalInfo,
             })
         } catch (error) {
             console.error('Creating user error', error.message)

@@ -35,7 +35,7 @@ export class App extends React.Component<Props, State> {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
 
-                userRef.onSnapshot((snapshot) => {
+                userRef && userRef.onSnapshot((snapshot) => {
                     const data = snapshot.data();
 
                     if (data) {
