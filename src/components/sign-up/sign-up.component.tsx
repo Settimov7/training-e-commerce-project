@@ -85,7 +85,7 @@ export class SignUp extends React.Component<Props, State> {
 
 					<FormInput
 						type='email'
-						name='displayName'
+						name='email'
 						value={email}
 						handleChange={this.handleChange}
 						label='Email'
@@ -94,7 +94,7 @@ export class SignUp extends React.Component<Props, State> {
 
 					<FormInput
 						type='password'
-						name='displayName'
+						name='password'
 						value={password}
 						handleChange={this.handleChange}
 						label='Password'
