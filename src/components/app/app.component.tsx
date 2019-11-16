@@ -14,7 +14,7 @@ import './app.styles.scss';
 type Props = {};
 
 type State = {
-  currentUser: User | null,
+    currentUser: User | null,
 };
 
 export class App extends React.Component<Props, State> {
@@ -39,9 +39,11 @@ export class App extends React.Component<Props, State> {
     }
 
     render() {
+        const {currentUser} = this.state;
+
         return (
             <div>
-                <Header/>
+                <Header currentUser={currentUser}/>
 
                 <Switch>
                     <Route exact path='/' component={HomePage}/>

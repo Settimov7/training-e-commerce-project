@@ -10,7 +10,7 @@ import {User} from 'firebase';
 import './header.styles.scss';
 
 type Props = {
-    currentUser: User
+    currentUser: User | null
 };
 
 export const Header: React.FC<Props> = ({currentUser}) => (
