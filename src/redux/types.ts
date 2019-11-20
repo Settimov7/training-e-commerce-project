@@ -1,6 +1,6 @@
 import {UserAction, UserState} from './user/user.types';
 
-export type State = {
+export type StoreState = {
     user: UserState,
 }
 

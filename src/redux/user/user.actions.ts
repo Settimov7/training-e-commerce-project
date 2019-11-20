@@ -2,7 +2,7 @@ import {UserActionTypes} from './user.contants';
 
 import {SetCurrentUserAction, User} from './user.types';
 
-export const setCurrentUser = (user: User | null): SetCurrentUserAction => ({
+export const setCurrentUser = (user: User): SetCurrentUserAction => ({
     type: UserActionTypes.SetCurrentUser,
     payload: user,
 });
