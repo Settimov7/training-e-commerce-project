@@ -7,7 +7,7 @@ import {HomePage} from '../../pages/homepage/homepage.component';
 import {ShopPage} from '../../pages/shop/shop.component';
 import {SignInAndSignUpPage} from '../../pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
-import {User} from '../../types/user';
+import {User} from '../../redux/user/user.types';
 
 import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
 

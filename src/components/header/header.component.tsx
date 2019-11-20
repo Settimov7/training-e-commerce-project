@@ -5,7 +5,7 @@ import {ReactComponent as Logo} from '../../assets/crown.svg';
 
 import {auth} from '../../firebase/firebase.utils';
 
-import {User} from '../../types/user';
+import {User} from '../../redux/user/user.types';
 
 import './header.styles.scss';
 
