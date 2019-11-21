@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect, MapStateToProps} from 'react-redux';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
 import {auth} from '../../firebase/firebase.utils';
 
+import {State} from '../../redux/types';
 import {User} from '../../redux/user/user.types';
 
 import './header.styles.scss';
@@ -13,7 +15,7 @@ type Props = {
     currentUser: User | null
 };
 
-export const Header: React.FC<Props> = ({currentUser}) => (
+const HeaderView: React.FC<Props> = ({currentUser}) => (
     <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo'/>
@@ -37,3 +39,13 @@ export const Header: React.FC<Props> = ({currentUser}) => (
         </div>
     </div>
 );
+
+type StateProps = {
+  currentUser: User | null,
+};
+
+const mapStateToProps: MapStateToProps<StateProps, {}, State> = (state) => ({
+    currentUser: state.user.currentUser,
+});
+
+export const Header = connect(mapStateToProps)(HeaderView);

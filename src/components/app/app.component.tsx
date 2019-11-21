@@ -62,11 +62,9 @@ export class App extends React.Component<Props, State> {
     }
 
     render() {
-        const {currentUser} = this.state;
-
         return (
             <div>
-                <Header currentUser={currentUser}/>
+                <Header/>
 
                 <Switch>
                     <Route exact path='/' component={HomePage}/>
