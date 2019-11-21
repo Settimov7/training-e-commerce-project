@@ -15,5 +15,5 @@ export type UserAction = SetCurrentUserAction;
 
 export type SetCurrentUserAction = {
     type:  typeof UserActionTypes.SetCurrentUser,
-    payload: User
+    payload: User | null
 }
