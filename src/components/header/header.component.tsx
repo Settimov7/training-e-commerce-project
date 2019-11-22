@@ -4,6 +4,8 @@ import {connect, MapStateToProps} from 'react-redux';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
+import {CartIcon} from '../cart-icon/cart-icon.component';
+
 import {auth} from '../../firebase/firebase.utils';
 
 import {State} from '../../redux/types';
@@ -36,6 +38,8 @@ const HeaderView: React.FC<Props> = ({currentUser}) => (
                     :
                     <Link className='option' to='/sign-in'>SIGN IN</Link>
             }
+
+            <CartIcon />
         </div>
     </div>
 );
