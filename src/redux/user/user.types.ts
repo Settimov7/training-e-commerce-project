@@ -1,4 +1,4 @@
-import {UserActionTypes} from './user.contants';
+import {UserActionTypes} from './user.action-types';
 
 export type UserState = {
     currentUser: User | null,
@@ -14,6 +14,6 @@ export type User = {
 export type UserAction = SetCurrentUserAction;
 
 export type SetCurrentUserAction = {
-    type:  typeof UserActionTypes.SetCurrentUser,
+    type:  typeof UserActionTypes.SET_CURRENT_USER,
     payload: User | null
 }
