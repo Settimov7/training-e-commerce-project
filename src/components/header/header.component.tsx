@@ -5,6 +5,7 @@ import {connect, MapStateToProps} from 'react-redux';
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
 import {CartIcon} from '../cart-icon/cart-icon.component';
+import {CartDropdown} from '../cart-dropdown/cart-dropdown.component';
 
 import {auth} from '../../firebase/firebase.utils';
 
@@ -41,6 +42,8 @@ const HeaderView: React.FC<Props> = ({currentUser}) => (
 
             <CartIcon />
         </div>
+
+        <CartDropdown/>
     </div>
 );
 
