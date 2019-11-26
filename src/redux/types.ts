@@ -1,7 +1,7 @@
-import {UserAction, UserState} from './user/user.types';
+import {UserState} from './user/user.types';
+import {CartState} from './cart/cart.types';
 
 export type State = {
     user: UserState,
+    cart: CartState,
 }
-
-export type Action = UserAction

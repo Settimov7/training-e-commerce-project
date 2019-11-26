@@ -14,11 +14,7 @@ import {User} from '../../redux/user/user.types';
 
 import './header.styles.scss';
 
-type Props = {
-    currentUser: User | null
-};
-
-const HeaderView: React.FC<Props> = ({currentUser}) => (
+const HeaderView: React.FC<Props> = ({currentUser, hidden}) => (
     <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo'/>
@@ -43,16 +39,22 @@ const HeaderView: React.FC<Props> = ({currentUser}) => (
             <CartIcon />
         </div>
 
-        <CartDropdown/>
+        {hidden || <CartDropdown/>}
     </div>
 );
 
+type OwnProps = {};
+
 type StateProps = {
-  currentUser: User | null,
+    currentUser: User | null,
+    hidden: boolean,
 };
 
-const mapStateToProps: MapStateToProps<StateProps, {}, State> = (state) => ({
+type Props = OwnProps & StateProps;
+
+const mapStateToProps: MapStateToProps<StateProps, OwnProps, State> = (state) => ({
     currentUser: state.user.currentUser,
+    hidden: state.cart.hidden,
 });
 
 export const Header = connect(mapStateToProps)(HeaderView);

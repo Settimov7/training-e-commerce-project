@@ -1,9 +1,13 @@
 import {combineReducers} from 'redux';
 
 import {userReducer} from './user/user.reducer';
+import {cartReducer} from './cart/cart.reducer';
 
-import {Action, State} from './types';
+import {State} from './types';
 
-export const rootReducer = combineReducers<State, Action>({
+//TODO: Разобраться с ошибкой в combineReducers
+
+export const rootReducer = combineReducers<State>({
     user: userReducer,
+    cart: cartReducer,
 });
