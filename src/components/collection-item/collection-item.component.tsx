@@ -1,4 +1,6 @@
-import React from "react";
+import React from 'react';
+
+import { CustomButton } from '../custom-button/custom-button.component';
 
 import './collection-item.styles.scss';
 
@@ -22,5 +24,7 @@ export const CollectionItem: React.FC<Props> = ({id, name, imageUrl, price}) => 
             <span className='name'>{name}</span>
             <span className='price'>{price}</span>
         </div>
+
+        <CustomButton inverted>Add to card</CustomButton>
     </div>
 );
