@@ -1,30 +1,51 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import { CustomButton } from '../custom-button/custom-button.component';
 
+import { addItem } from '../../redux/cart/cart.actions';
+
+import {CollectionItem as CollectionItemType} from "../../types";
+
 import './collection-item.styles.scss';
 
-type Props = {
-    id: number,
-    name: string,
-    imageUrl: string,
-    price: number
+const CollectionItemView: React.FC<Props> = ({item, addItem}) => {
+    const {imageUrl, name, price} = item;
+
+    return (
+        <div className='collection-item'>
+            <div
+                className='image'
+                style={{
+                    backgroundImage: `url(${imageUrl})`
+                }}
+            />
+
+            <div className='collection-footer'>
+                <span className='name'>{name}</span>
+                <span className='price'>{price}</span>
+            </div>
+
+            <CustomButton onClick={() => addItem(item)} inverted>Add to card</CustomButton>
+        </div>
+    );
 };
 
-export const CollectionItem: React.FC<Props> = ({id, name, imageUrl, price}) => (
-    <div className='collection-item'>
-        <div
-            className='image'
-            style={{
-                backgroundImage: `url(${imageUrl})`
-            }}
-        />
+type OwnProps = {
+    item: CollectionItemType,
+}
 
-        <div className='collection-footer'>
-            <span className='name'>{name}</span>
-            <span className='price'>{price}</span>
-        </div>
+type DispatchProps = {
+    addItem: typeof addItem,
+}
 
-        <CustomButton inverted>Add to card</CustomButton>
-    </div>
-);
+type Props = OwnProps & DispatchProps;
+
+export const mapDispatchToProps = ({
+    addItem,
+});
+
+export const CollectionItem = connect<null, DispatchProps, OwnProps>(
+    null,
+    mapDispatchToProps
+)(CollectionItemView);

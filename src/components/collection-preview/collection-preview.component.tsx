@@ -1,17 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import {CollectionItem} from "../collection-item/collection-item.component";
+import {CollectionItem} from '../collection-item/collection-item.component';
+
+import {CollectionItems} from '../../types'
 
 import './collection-preview.styles.scss';
 
 type Props = {
     title: string,
-    items: ReadonlyArray<{
-        id: number,
-        name: string,
-        imageUrl: string,
-        price: number
-    }>,
+    items: CollectionItems,
 }
 
 export const CollectionPreview: React.FC<Props> = ({title, items}) => (
@@ -22,8 +19,8 @@ export const CollectionPreview: React.FC<Props> = ({title, items}) => (
             {
                 items
                     .filter((item, id) => id < 4)
-                    .map(({ id, name, imageUrl, price }) => (
-                        <CollectionItem key={id} id={id} name={name} imageUrl={imageUrl} price={price}/>
+                    .map((item) => (
+                        <CollectionItem key={item.id} item={item}/>
                     ))
             }
         </div>
