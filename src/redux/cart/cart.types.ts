@@ -3,8 +3,12 @@ import {CollectionItem} from '../../types';
 
 export type CartState = {
     hidden: boolean,
-    cartItems: ReadonlyArray<CollectionItem>
+    cartItems: ReadonlyArray<CartItem>
 };
+
+export type CartItem = CollectionItem & {
+    quantity: number,
+}
 
 export type CartAction = ToggleCartHiddenAction | AddItemAction;
 
