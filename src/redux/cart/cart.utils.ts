@@ -1,7 +1,6 @@
-import {CartItem} from './cart.types';
-import {CollectionItem} from '../../types';
+import {CartItems, CollectionItem} from '../../types';
 
-export const addItemToCart = (cartItems: ReadonlyArray<CartItem>, cartItemToAdd: CollectionItem): ReadonlyArray<CartItem> => {
+export const addItemToCart = (cartItems: CartItems, cartItemToAdd: CollectionItem): CartItems => {
     const existingCartItem = cartItems.find(({id}) => id === cartItemToAdd.id);
 
     if (existingCartItem) {

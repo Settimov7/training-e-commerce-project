@@ -1,14 +1,10 @@
 import {CartActionTypes} from './cart.action-types';
-import {CollectionItem} from '../../types';
+import {CartItems, CollectionItem} from '../../types';
 
 export type CartState = {
     hidden: boolean,
-    cartItems: ReadonlyArray<CartItem>
+    cartItems: CartItems,
 };
-
-export type CartItem = CollectionItem & {
-    quantity: number,
-}
 
 export type CartAction = ToggleCartHiddenAction | AddItemAction;
 
