@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect, MapDispatchToProps, MapStateToProps} from 'react-redux';
+import {connect, MapDispatchToProps} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
 import {ReactComponent as ShoppingIcon} from '../../assets/shopping-bag.svg';
 
@@ -30,8 +31,8 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps: MapStateToProps<StateProps, OwnProps, State> = (state) => ({
-    itemCount: selectCartItemsCount(state),
+const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+    itemCount: selectCartItemsCount,
 });
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
