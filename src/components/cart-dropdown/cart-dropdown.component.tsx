@@ -4,6 +4,8 @@ import {connect, MapStateToProps} from 'react-redux';
 import {CustomButton} from '../custom-button/custom-button.component';
 import {CartItem} from '../cart-item/cart-item.component';
 
+import {selectCartItems} from '../../redux/cart/cart.selectors';
+
 import {CartItems} from '../../types';
 import {State} from '../../redux/types';
 
@@ -28,7 +30,7 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 const mapStateToProps: MapStateToProps<StateProps, OwnProps, State> = (state) => ({
-    cartItems: state.cart.cartItems,
+    cartItems: selectCartItems(state),
 });
 
 export const CartDropdown = connect<StateProps, null, OwnProps, State>(mapStateToProps)(CartDropdownView);
