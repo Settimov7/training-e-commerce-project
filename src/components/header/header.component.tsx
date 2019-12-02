@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {connect, DispatchProp} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
@@ -54,7 +54,7 @@ type StateProps = {
     hidden: boolean,
 };
 
-type DispatchProps = {};
+type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
