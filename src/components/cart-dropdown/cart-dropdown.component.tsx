@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, MapDispatchToProps} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
 
@@ -7,6 +7,8 @@ import {CustomButton} from '../custom-button/custom-button.component';
 import {CartItem} from '../cart-item/cart-item.component';
 
 import {selectCartItems} from '../../redux/cart/cart.selectors';
+
+import {toggleCartHidden} from '../../redux/cart/cart.actions';
 
 import {CartItems} from '../../types';
 import {State} from '../../redux/types';
@@ -24,7 +26,14 @@ const CartDropdownView: React.FC<RouteComponentProps & Props> = ({cartItems, his
             }
         </div>
 
-        <CustomButton onClick={() => history.push('/checkout')}>GO TO CHECKOUT</CustomButton>
+        <CustomButton
+            onClick={() => {
+                toggleCartHidden();
+                history.push('/checkout');
+            }}
+        >
+            GO TO CHECKOUT
+        </CustomButton>
     </div>
 );
 
@@ -34,7 +43,9 @@ type StateProps = {
     cartItems: CartItems,
 };
 
-type DispatchProps = {};
+type DispatchProps = {
+    toggleCartHidden: typeof toggleCartHidden,
+};
 
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -42,4 +53,13 @@ const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
     cartItems: selectCartItems,
 });
 
-export const CartDropdown = withRouter(connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(CartDropdownView));
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
+    toggleCartHidden,
+});
+
+export const CartDropdown = withRouter(
+    connect<StateProps, DispatchProps, OwnProps, State>(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(CartDropdownView)
+);
