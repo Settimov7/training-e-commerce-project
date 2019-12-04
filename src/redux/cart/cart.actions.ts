@@ -1,4 +1,4 @@
-import {AddItemAction, ClearItemFromCartAction, ToggleCartHiddenAction} from './cart.types';
+import {AddItemAction, ClearItemFromCartAction, RemoveItemAction, ToggleCartHiddenAction} from './cart.types';
 import {CartActionTypes} from './cart.action-types';
 import {CollectionItem} from '../../types';
 
@@ -9,6 +9,11 @@ export const toggleCartHidden = (): ToggleCartHiddenAction => ({
 
 export const addItem = (item: CollectionItem): AddItemAction => ({
     type: CartActionTypes.ADD_ITEM,
+    payload: item,
+});
+
+export const removeItem = (item: CollectionItem): RemoveItemAction => ({
+    type: CartActionTypes.REMOVE_ITEM,
     payload: item,
 });
 
