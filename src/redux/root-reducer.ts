@@ -5,6 +5,7 @@ import {PersistConfig} from 'redux-persist/es/types';
 
 import {userReducer} from './user/user.reducer';
 import {cartReducer} from './cart/cart.reducer';
+import {directoryReducer} from './directory/directory.reducer';
 
 import {State} from './types';
 
@@ -19,6 +20,7 @@ const persistConfig: PersistConfig<State> = {
 const reducer = combineReducers<State>({
     user: userReducer,
     cart: cartReducer,
+    directory: directoryReducer,
 });
 
 export const rootReducer = persistReducer<State>(persistConfig, reducer);

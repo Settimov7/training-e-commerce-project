@@ -1,76 +1,42 @@
 import React from 'react';
+import {connect, DispatchProp} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
-import { MenuItem } from '../menu-item/menu-item.component';
+import {MenuItem} from '../menu-item/menu-item.component';
 
-import { Sections } from './directory.types';
+import {selectSections} from '../../redux/directory/directory.selectors';
+
+import {State} from '../../redux/types';
+import {Sections} from '../../redux/directory/directory.types';
 
 import './directory.styles.scss';
 
-type Props = {};
+const DirectoryView: React.FC<Props> = ({sections}) => (
+    <div className='directory-menu'>
+        {sections.map(({id, title, imageUrl, linkUrl, size}) => (
+            <MenuItem
+                key={id}
+                title={title}
+                imageUrl={imageUrl}
+                size={size}
+                linkUrl={linkUrl}
+            />
+        ))}
+    </div>
+);
 
-type State = {
-	sections: Sections;
+type OwnProps = {};
+
+type StateProps = {
+    sections: Sections,
 }
 
-const SECTIONS: Sections = [
-	{
-		title: 'hats',
-		imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-		id: 1,
-		linkUrl: 'hats'
-	},
-	{
-		title: 'jackets',
-		imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-		id: 2,
-		linkUrl: 'jackets'
-	},
-	{
-		title: 'sneakers',
-		imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-		id: 3,
-		linkUrl: 'sneakers'
-	},
-	{
-		title: 'womens',
-		imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-		size: 'large',
-		id: 4,
-		linkUrl: 'womens'
-	},
-	{
-		title: 'mens',
-		imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-		size: 'large',
-		id: 5,
-		linkUrl: 'mens',
-	},
-];
+type DispatchProps = DispatchProp;
 
-export class Directory extends React.Component<Props, State> {
-	constructor(props: Props) {
-		super(props);
+type Props = OwnProps & StateProps & DispatchProps;
 
-		this.state = {
-			sections: SECTIONS,
-		}
-	}
+const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+    sections: selectSections,
+});
 
-	render() {
-		const { sections } = this.state;
-
-		return (
-			<div className='directory-menu'>
-				{ sections.map(({ id, title, imageUrl, linkUrl, size }) => (
-					<MenuItem
-						key={ id }
-						title={ title }
-						imageUrl={ imageUrl }
-						size={ size }
-						linkUrl={ linkUrl }
-					/>
-				)) }
-			</div>
-		);
-	}
-}
+export const Directory = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(DirectoryView);
