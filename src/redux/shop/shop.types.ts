@@ -6,7 +6,7 @@ export type ShopAction = any;
 
 export type Collections = ReadonlyArray<Collection>;
 
-type Collection = {
+export type Collection = {
     id: number,
     title: string,
     routeName: string,
