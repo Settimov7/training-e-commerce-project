@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, DispatchProp} from 'react-redux';
+import {RouteComponentProps} from 'react-router';
 import {createStructuredSelector} from 'reselect';
 
 import {CheckoutItem} from '../../components/checkout-item/checkout-item.component';
@@ -43,14 +44,14 @@ const CheckoutPageView: React.FC<Props> = ({cartItems, total}) => (
     </div>
 );
 
-type OwnProps = {};
+type OwnProps = RouteComponentProps;
 
 type StateProps = {
     cartItems: CartItems,
     total: number,
 };
 
-type DispatchProps = {};
+type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
