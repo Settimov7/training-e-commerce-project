@@ -1,46 +1,37 @@
-import React, {Component} from "react";
+import React from 'react';
+import {connect, DispatchProp} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
-import {CollectionPreview} from "../../components/collection-preview/collection-preview.component";
+import {CollectionPreview} from '../../components/collection-preview/collection-preview.component';
 
-import {SHOP_DATA} from "./shop-data";
+import {selectCollections} from '../../redux/shop/shop.selectors';
 
-type Props = {}
+import {Collections} from '../../redux/shop/shop.types';
+import {State} from "../../redux/types";
 
-//TODO: Вынести в типы
-type State = {
-    collections: ReadonlyArray<{
-        id: number,
-        title: string,
-        routeName: string,
-        items: ReadonlyArray<{
-            id: number,
-            name: string,
-            imageUrl: string,
-            price: number
-        }>
-    }>,
-}
-
-export class ShopPage extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            collections: SHOP_DATA,
+const ShopPageView: React.FC<Props> = ({ collections }) => (
+    <div className='shop-page'>
+        {
+            collections.map(({id, title, items}) => (
+                <CollectionPreview key={id} title={title} items={items}/>
+            ))
         }
-    }
+    </div>
+);
 
-    render() {
-        const {collections} = this.state;
+type OwnProps = {};
 
-        return (
-            <div className='shop-page'>
-                {
-                    collections.map(({id, title, items}) => (
-                        <CollectionPreview key={id} title={title} items={items}/>
-                    ))
-                }
-            </div>
-        );
-    }
-}
+type StateProps = {
+  collections: Collections,
+};
+
+type DispatchProps = DispatchProp;
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+const mapStateToProps = createStructuredSelector<State, StateProps>({
+    collections: selectCollections,
+});
+
+export const ShopPage = connect(mapStateToProps)(ShopPageView);
+
