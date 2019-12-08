@@ -5,10 +5,10 @@ import {RouteComponentProps} from 'react-router';
 
 import {CollectionPreview} from '../collection-preview/collection-preview.component';
 
-import {selectCollections} from '../../redux/shop/shop.selectors';
+import {selectCollectionsAsArray} from '../../redux/shop/shop.selectors';
 
 import {State} from '../../redux/types';
-import {Collections} from '../../redux/shop/shop.types';
+import {Collection} from '../../redux/shop/shop.types';
 
 import './collections-overview.styles.scss';
 
@@ -25,7 +25,7 @@ const CollectionsOverviewView: React.FC<Props> = ({collections}) => (
 type OwnProps = RouteComponentProps;
 
 type StateProps = {
-    collections: Collections,
+    collections: ReadonlyArray<Collection>,
 }
 
 type DispatchProps = DispatchProp;
@@ -33,7 +33,7 @@ type DispatchProps = DispatchProp;
 type Props = OwnProps & StateProps & DispatchProps;
 
 const mapStateToProps = createStructuredSelector<State, StateProps>({
-    collections: selectCollections,
+    collections: selectCollectionsAsArray,
 });
 
 export const CollectionsOverview = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(CollectionsOverviewView);

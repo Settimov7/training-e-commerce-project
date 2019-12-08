@@ -4,7 +4,7 @@ export type ShopState = {
 
 export type ShopAction = any;
 
-export type Collections = ReadonlyArray<Collection>;
+export type Collections = Record<string, Collection>;
 
 export type Collection = {
     id: number,
