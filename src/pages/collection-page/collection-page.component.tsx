@@ -2,6 +2,8 @@ import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {connect, DispatchProp, MapStateToProps} from 'react-redux';
 
+import {CollectionItem} from '../../components/collection-item/collection-item.component';
+
 import {selectCollection} from '../../redux/shop/shop.selectors';
 
 import {MatchParams} from '../shop/shop.types';
@@ -10,16 +12,30 @@ import {State} from '../../redux/types';
 
 import './collection-page.styles.scss';
 
-const CollectionPageView: React.FC<Props> = () => (
-  <div className='collection-page'>
-      <h2>Collection Page</h2>
-  </div>
-);
+const CollectionPageView: React.FC<Props> = ({collection}) => {
+    if (!collection) {
+        return null;
+    }
+
+    const {title, items} = collection;
+
+    return (
+        <div className='collection-page'>
+            <h2 className='title'>{title}</h2>
+
+            <div className='items'>
+                {
+                    items.map((item) => <CollectionItem key={item.id} item={item}/>)
+                }
+            </div>
+        </div>
+    );
+};
 
 type OwnProps = RouteComponentProps<MatchParams>;
 
 type StateProps = {
-  collection: Collection | undefined,
+    collection: Collection | undefined,
 };
 
 type DispatchProps = DispatchProp;
