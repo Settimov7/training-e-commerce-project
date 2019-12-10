@@ -1,16 +1,11 @@
 import React from 'react';
 
-import './custom-button.styles.scss';
+import { CustomButtonContainer } from './custom-button.styles';
 
-type Props = {
-    type?: 'submit' | 'button',
-    isGoogleSignIn?: boolean,
-    inverted?: boolean,
-    onClick?: React.MouseEventHandler<HTMLButtonElement>,
-}
+import {Props} from './custom-button.types';
 
-export const CustomButton: React.FC<Props> = ({ children, isGoogleSignIn, inverted,  ...otherProps }) => (
-    <button className={`${inverted ? 'inverted' : ''} ${isGoogleSignIn ? 'google-sign-in': ''} custom-button`} {...otherProps}>
+export const CustomButton: React.FC<Props> = ({ children,  ...otherProps }) => (
+    <CustomButtonContainer {...otherProps}>
         { children }
-    </button>
+    </CustomButtonContainer>
 );
