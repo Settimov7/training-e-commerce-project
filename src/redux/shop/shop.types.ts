@@ -1,7 +1,7 @@
 import {ShopActionTypes} from './shop.actions-types';
 
 export type ShopState = {
-    collections: Collections,
+    collections: Collections | null,
 }
 
 export type ShopAction = UpdateCollectionsAction;

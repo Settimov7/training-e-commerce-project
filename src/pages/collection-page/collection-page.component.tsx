@@ -35,7 +35,7 @@ const CollectionPageView: React.FC<Props> = ({collection}) => {
 type OwnProps = RouteComponentProps<MatchParams>;
 
 type StateProps = {
-    collection: Collection | undefined,
+    collection: Collection | null,
 };
 
 type DispatchProps = DispatchProp;
