@@ -2,7 +2,10 @@ import firebase, {User} from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth'
 
+import {Collection, Collections} from '../redux/shop/shop.types';
+
 type DocumentReference = firebase.firestore.DocumentReference;
+type QuerySnapshot = firebase.firestore.QuerySnapshot;
 
 type AdditionalInfo = {
     [key: string]: any;
@@ -42,6 +45,25 @@ export const createUserProfileDocument = async (userAuth: User | null, additiona
     }
 
     return userRef;
+};
+
+export const convertCollectionsSnapshotToMap = (collections: QuerySnapshot): Collections => {
+    const transformedCollection: ReadonlyArray<Collection> = collections.docs.map((doc) => {
+        const { title, items } = doc.data();
+
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items,
+        }
+    });
+
+    return transformedCollection.reduce<Collections>((accumulator, collection) => {
+        accumulator[collection.title.toLocaleLowerCase()] = collection;
+
+        return accumulator;
+    }, {})
 };
 
 firebase.initializeApp(config);

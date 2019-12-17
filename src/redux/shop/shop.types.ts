@@ -1,13 +1,20 @@
+import {ShopActionTypes} from './shop.actions-types';
+
 export type ShopState = {
     collections: Collections,
 }
 
-export type ShopAction = any;
+export type ShopAction = UpdateCollectionsAction;
+
+export type UpdateCollectionsAction = {
+    type: typeof ShopActionTypes.UPDATE_COLLECTIONS,
+    payload: Collections,
+}
 
 export type Collections = Record<string, Collection>;
 
 export type Collection = {
-    id: number,
+    id: string | number,
     title: string,
     routeName: string,
     items: CollectionItems,
