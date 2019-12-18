@@ -2,12 +2,12 @@ import React from 'react';
 
 import {SpinnerContainer, SpinnerOverlay} from './with-spinner.styles';
 
-type WithSpinnerProps = {
+export type WithSpinnerProps = {
     isLoading: boolean,
 };
 
-export const WithSpinner = <P extends WithSpinnerProps>(WrappedComponent: React.ComponentType<P>) =>
-    ({isLoading, ...otherProps}: WithSpinnerProps & P): React.ReactElement => {
+export const WithSpinner = <P extends WithSpinnerProps = WithSpinnerProps>(WrappedComponent: React.ComponentType<P>): React.FC<P & WithSpinnerProps> =>
+    ({isLoading, ...props}) => {
         if (isLoading) {
             return (
                 <SpinnerOverlay>
@@ -16,5 +16,5 @@ export const WithSpinner = <P extends WithSpinnerProps>(WrappedComponent: React.
             )
         }
 
-        return <WrappedComponent {...otherProps as P} />
+        return <WrappedComponent {...props as P} />
     };

@@ -32,7 +32,7 @@ const CollectionPageView: React.FC<Props> = ({collection}) => {
     );
 };
 
-type OwnProps = RouteComponentProps<MatchParams>;
+export type OwnProps = RouteComponentProps<MatchParams>;
 
 type StateProps = {
     collection: Collection | null,

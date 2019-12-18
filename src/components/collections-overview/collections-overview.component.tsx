@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect, DispatchProp} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {RouteComponentProps} from 'react-router';
 
 import {CollectionPreview} from '../collection-preview/collection-preview.component';
 
@@ -22,7 +21,7 @@ const CollectionsOverviewView: React.FC<Props> = ({collections}) => (
     </div>
 );
 
-type OwnProps = RouteComponentProps;
+export type OwnProps = {};
 
 type StateProps = {
     collections: ReadonlyArray<Collection>,
