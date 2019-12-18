@@ -11,7 +11,7 @@ import {selectCartItems} from '../../redux/cart/cart.selectors';
 import {toggleCartHidden} from '../../redux/cart/cart.actions';
 
 import {CartItems} from '../../types';
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 
 import './cart-dropdown.styles.scss';
 
@@ -49,7 +49,7 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
     cartItems: selectCartItems,
 });
 
@@ -58,7 +58,7 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
 });
 
 export const CartDropdown = withRouter(
-    connect<StateProps, DispatchProps, OwnProps, State>(
+    connect<StateProps, DispatchProps, OwnProps, AppState>(
         mapStateToProps,
         mapDispatchToProps,
     )(CartDropdownView)

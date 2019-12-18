@@ -11,7 +11,7 @@ import { updateCollections } from '../../redux/shop/shop.actions';
 
 import {convertCollectionsSnapshotToMap, firestore} from '../../firebase/firebase.utils';
 
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 
 class ShopPageView extends React.Component<Props> {
     unsubscribeFromSnapshot: Unsubscribe | null = null;
@@ -59,5 +59,5 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
     updateCollections,
 });
 
-export const ShopPage = connect<StateProps, DispatchProps, OwnProps, State>(null, mapDispatchToProps)(ShopPageView);
+export const ShopPage = connect<StateProps, DispatchProps, OwnProps, AppState>(null, mapDispatchToProps)(ShopPageView);
 

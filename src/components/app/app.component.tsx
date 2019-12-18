@@ -17,7 +17,7 @@ import {selectCurrentUser} from '../../redux/user/user.selectors';
 import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
 
 import {User} from "../../redux/user/user.types";
-import {State} from "../../redux/types";
+import {AppState} from "../../redux/types";
 
 import './app.styles.scss';
 
@@ -90,7 +90,7 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
     currentUser: selectCurrentUser,
 });
 
@@ -98,4 +98,4 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
     setCurrentUser,
 });
 
-export const App = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps, mapDispatchToProps)(AppView);
+export const App = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps, mapDispatchToProps)(AppView);

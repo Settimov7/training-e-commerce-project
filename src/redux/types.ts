@@ -3,7 +3,7 @@ import {CartState} from './cart/cart.types';
 import {DirectoryState} from './directory/directory.types';
 import {ShopState} from './shop/shop.types';
 
-export type State = {
+export type AppState = {
     user: UserState,
     cart: CartState,
     directory: DirectoryState,

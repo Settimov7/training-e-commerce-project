@@ -14,7 +14,7 @@ import {selectCartHidden} from '../../redux/cart/cart.selectors';
 
 import {auth} from '../../firebase/firebase.utils';
 
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 import {User} from '../../redux/user/user.types';
 
 const HeaderView: React.FC<Props> = ({currentUser, hidden}) => (
@@ -57,9 +57,9 @@ type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden,
 });
 
-export const Header = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(HeaderView);
+export const Header = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps)(HeaderView);

@@ -8,7 +8,7 @@ import {selectCollection} from '../../redux/shop/shop.selectors';
 
 import {MatchParams} from '../shop/shop.types';
 import {Collection} from '../../redux/shop/shop.types';
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 
 import './collection-page.styles.scss';
 
@@ -42,8 +42,8 @@ type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps: MapStateToProps<StateProps, OwnProps, State> = (state, ownProps) => ({
+const mapStateToProps: MapStateToProps<StateProps, OwnProps, AppState> = (state, ownProps) => ({
     collection: selectCollection(ownProps.match.params.collectionId)(state),
 });
 
-export const CollectionPage = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(CollectionPageView);
+export const CollectionPage = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps)(CollectionPageView);

@@ -4,7 +4,7 @@ import {connect, MapDispatchToProps} from 'react-redux';
 import {clearItemFromCart, removeItem, addItem} from '../../redux/cart/cart.actions';
 
 import {CartItem} from '../../types';
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 
 import './checkout-item.styles.scss';
 
@@ -49,4 +49,4 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
     addItem,
 });
 
-export const CheckoutItem = connect<StateProps, DispatchProps, OwnProps, State>(null, mapDispatchToProps)(CheckoutItemView);
+export const CheckoutItem = connect<StateProps, DispatchProps, OwnProps, AppState>(null, mapDispatchToProps)(CheckoutItemView);

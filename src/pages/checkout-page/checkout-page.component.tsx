@@ -9,7 +9,7 @@ import {StripeCheckoutButton} from '../../components/stripe-checkout-button/stri
 import {selectCartItems, selectCartTotal} from '../../redux/cart/cart.selectors';
 
 import {CartItems} from '../../types';
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 
 import './checkout-page.styles.scss';
 
@@ -64,10 +64,10 @@ type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps = createStructuredSelector<State, OwnProps, StateProps>({
+const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
     cartItems: selectCartItems,
     total: selectCartTotal,
 });
 
-export const CheckoutPage = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(CheckoutPageView);
+export const CheckoutPage = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps)(CheckoutPageView);
 

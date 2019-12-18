@@ -8,9 +8,9 @@ import {cartReducer} from './cart/cart.reducer';
 import {directoryReducer} from './directory/directory.reducer';
 import {shopReducer} from './shop/shop.reducer';
 
-import {State} from './types';
+import {AppState} from './types';
 
-const persistConfig: PersistConfig<State> = {
+const persistConfig: PersistConfig<AppState> = {
     key: 'root',
     storage,
     whitelist: ['cart'],
@@ -18,11 +18,11 @@ const persistConfig: PersistConfig<State> = {
 
 //TODO: Разобраться с ошибкой в типе Action в combineReducers
 
-const reducer = combineReducers<State>({
+const reducer = combineReducers<AppState>({
     user: userReducer,
     cart: cartReducer,
     directory: directoryReducer,
     shop: shopReducer,
 });
 
-export const rootReducer = persistReducer<State>(persistConfig, reducer);
+export const rootReducer = persistReducer<AppState>(persistConfig, reducer);

@@ -7,7 +7,7 @@ import {CollectionPreview} from '../collection-preview/collection-preview.compon
 
 import {selectCollectionsAsArray} from '../../redux/shop/shop.selectors';
 
-import {State} from '../../redux/types';
+import {AppState} from '../../redux/types';
 import {Collection} from '../../redux/shop/shop.types';
 
 import './collections-overview.styles.scss';
@@ -32,9 +32,9 @@ type DispatchProps = DispatchProp;
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapStateToProps = createStructuredSelector<State, StateProps>({
+const mapStateToProps = createStructuredSelector<AppState, StateProps>({
     collections: selectCollectionsAsArray,
 });
 
-export const CollectionsOverview = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps)(CollectionsOverviewView);
+export const CollectionsOverview = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps)(CollectionsOverviewView);
 

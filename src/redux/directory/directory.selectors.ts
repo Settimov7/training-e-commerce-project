@@ -1,11 +1,11 @@
 import {createSelector} from 'reselect';
 
-import {State} from '../types';
+import {AppState} from '../types';
 import {DirectoryState, Sections} from './directory.types';
 
-const selectDirectory = (state: State): DirectoryState => state.directory;
+const selectDirectory = (state: AppState): DirectoryState => state.directory;
 
-export const selectSections = createSelector<State, DirectoryState, Sections>(
+export const selectSections = createSelector<AppState, DirectoryState, Sections>(
     [selectDirectory],
     (directory) => directory.sections,
 );
