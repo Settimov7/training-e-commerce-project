@@ -1,8 +1,8 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {Route} from 'react-router-dom';
-import {Unsubscribe} from 'firebase';
 import {connect, MapDispatchToProps} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
 import {
     CollectionsOverview,
@@ -12,64 +12,35 @@ import {CollectionPage, OwnProps as CollectionPageProps} from '../collection-pag
 
 import {WithSpinner, WithSpinnerProps} from '../../components/with-spinner/with-spinner.components';
 
-import {updateCollections} from '../../redux/shop/shop.actions';
+import {selectCollectionFetching} from '../../redux/shop/shop.selectors';
 
-import {convertCollectionsSnapshotToMap, firestore} from '../../firebase/firebase.utils';
+import {fetchCollectionsStartAsync} from '../../redux/shop/shop.actions';
 
 import {AppState} from '../../redux/types';
 
 const CollectionsOverviewWithSpinner = WithSpinner<CollectionsOverviewProps & WithSpinnerProps>(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner<CollectionPageProps & WithSpinnerProps>(CollectionPage);
 
-type State = {
-    loading: boolean,
-}
-
-class ShopPageView extends React.Component<Props, State> {
-    unsubscribeFromSnapshot: Unsubscribe | null;
-
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            loading: true,
-        };
-
-        this.unsubscribeFromSnapshot = null;
-    }
-
+class ShopPageView extends React.Component<Props> {
     componentDidMount(): void {
-        const {updateCollections} = this.props;
+        const { fetchCollectionsStartAsync } = this.props;
 
-        const collectionRef = firestore.collection('collections');
-
-        this.unsubscribeFromSnapshot = collectionRef.onSnapshot( (snapshot) => {
-            const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-
-            updateCollections(collectionsMap);
-            this.setState({loading: false});
-        });
-
-    }
-
-    componentWillUnmount(): void {
-        this.unsubscribeFromSnapshot && this.unsubscribeFromSnapshot();
+        fetchCollectionsStartAsync();
     }
 
     render() {
-        const {match} = this.props;
-        const {loading} = this.state;
+        const {match, isCollectionsFetching} = this.props;
 
         return (
             <div className='shop-page'>
                 <Route
                     exact
                     path={`${match.path}`}
-                    render={() => <CollectionsOverviewWithSpinner isLoading={loading} />}
+                    render={() => <CollectionsOverviewWithSpinner isLoading={isCollectionsFetching} />}
                 />
                 <Route
                     path={`${match.path}/:collectionId`}
-                    render={(props) => <CollectionPageWithSpinner isLoading={loading} {...props} />}
+                    render={(props) => <CollectionPageWithSpinner isLoading={isCollectionsFetching} {...props} />}
                 />
             </div>
         );
@@ -78,17 +49,25 @@ class ShopPageView extends React.Component<Props, State> {
 
 type OwnProps = RouteComponentProps;
 
-type StateProps = {};
+type StateProps = {
+    isCollectionsFetching: boolean,
+};
 
+
+//TODO: Вроде норм, но кажется, что что-то не так
 type DispatchProps = {
-    updateCollections: typeof updateCollections,
+    fetchCollectionsStartAsync: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    updateCollections,
+const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
+    isCollectionsFetching: selectCollectionFetching,
 });
 
-export const ShopPage = connect<StateProps, DispatchProps, OwnProps, AppState>(null, mapDispatchToProps)(ShopPageView);
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
+    fetchCollectionsStartAsync,
+});
+
+export const ShopPage = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps, mapDispatchToProps)(ShopPageView);
 

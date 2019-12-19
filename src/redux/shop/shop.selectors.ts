@@ -19,3 +19,8 @@ export const selectCollection = (collectionUrlParam: string) => createSelector<A
     [selectCollections],
     (collections) => collections && collections[collectionUrlParam],
 );
+
+export const selectCollectionFetching = createSelector<AppState, ShopState, boolean>(
+    [selectShop],
+    (shop) => shop.isFetching,
+);
