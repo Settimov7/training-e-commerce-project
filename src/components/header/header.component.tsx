@@ -6,7 +6,7 @@ import {ReactComponent as Logo} from '../../assets/crown.svg';
 
 import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.styles';
 
-import {CartIcon} from '../cart-icon/cart-icon.component';
+import {CartIconContainer} from '../cart-icon/cart-icon.container';
 import {CartDropdownContainer} from '../cart-dropdown/cart-dropdown.container';
 
 import {selectCurrentUser} from '../../redux/user/user.selectors';
@@ -39,7 +39,7 @@ const HeaderView: React.FC<Props> = ({currentUser, hidden}) => (
                     <OptionLink to='/sign-in'>SIGN IN</OptionLink>
             }
 
-            <CartIcon />
+            <CartIconContainer />
         </OptionsContainer>
 
         {hidden || <CartDropdownContainer />}
