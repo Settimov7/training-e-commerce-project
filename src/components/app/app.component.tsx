@@ -1,8 +1,6 @@
 import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {Unsubscribe} from 'firebase';
-import {connect, MapDispatchToProps} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
 
 import {Header} from '../header/header.component';
 import {HomePage} from '../../pages/homepage/homepage.component';
@@ -12,16 +10,18 @@ import {CheckoutPage} from '../../pages/checkout-page/checkout-page.component';
 
 import {setCurrentUser} from '../../redux/user/user.actions';
 
-import {selectCurrentUser} from '../../redux/user/user.selectors';
-
 import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
 
-import {User} from "../../redux/user/user.types";
-import {AppState} from "../../redux/types";
+import {User} from '../../redux/user/user.types';
 
 import './app.styles.scss';
 
-class AppView extends React.Component<Props> {
+type Props = {
+    currentUser: User | null
+    setCurrentUser: typeof setCurrentUser,
+};
+
+export class App extends React.Component<Props> {
     unsubscribeFromAuth: Unsubscribe | null = null;
 
     componentDidMount(): void {
@@ -76,26 +76,3 @@ class AppView extends React.Component<Props> {
         );
     }
 }
-
-
-type OwnProps = {};
-
-type StateProps = {
-    currentUser: User | null
-};
-
-type DispatchProps = {
-    setCurrentUser: typeof setCurrentUser,
-}
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
-    currentUser: selectCurrentUser,
-});
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    setCurrentUser,
-});
-
-export const App = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps, mapDispatchToProps)(AppView);
