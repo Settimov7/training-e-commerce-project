@@ -2,7 +2,7 @@ import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {connect, DispatchProp, MapStateToProps} from 'react-redux';
 
-import {CollectionItem} from '../../components/collection-item/collection-item.component';
+import {CollectionItemContainer} from '../../components/collection-item/collection-item.container';
 
 import {selectCollection} from '../../redux/shop/shop.selectors';
 
@@ -25,7 +25,7 @@ const CollectionPageView: React.FC<Props> = ({collection}) => {
 
             <div className='items'>
                 {
-                    items.map((item) => <CollectionItem key={item.id} item={item}/>)
+                    items.map((item) => <CollectionItemContainer key={item.id} item={item}/>)
                 }
             </div>
         </div>

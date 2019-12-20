@@ -1,5 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+
+import {addItem} from '../../redux/cart/cart.actions';
+
+import {CollectionItem as CollectionItemType} from '../../types';
 
 import {
     AddButton,
@@ -9,11 +12,13 @@ import {
     NameContainer, PriceContainer
 } from "./collection-item.styles";
 
-import { addItem } from '../../redux/cart/cart.actions';
 
-import {CollectionItem as CollectionItemType} from "../../types";
+type Props = {
+    item: CollectionItemType,
+    addItem: typeof addItem,
+}
 
-const CollectionItemView: React.FC<Props> = ({item, addItem}) => {
+export const CollectionItem: React.FC<Props> = ({item, addItem}) => {
     const {imageUrl, name, price} = item;
 
     return (
@@ -29,22 +34,3 @@ const CollectionItemView: React.FC<Props> = ({item, addItem}) => {
         </CollectionItemContainer>
     );
 };
-
-type OwnProps = {
-    item: CollectionItemType,
-}
-
-type DispatchProps = {
-    addItem: typeof addItem,
-}
-
-type Props = OwnProps & DispatchProps;
-
-export const mapDispatchToProps = ({
-    addItem,
-});
-
-export const CollectionItem = connect<null, DispatchProps, OwnProps>(
-    null,
-    mapDispatchToProps
-)(CollectionItemView);

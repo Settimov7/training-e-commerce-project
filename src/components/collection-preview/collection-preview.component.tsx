@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {CollectionItem} from '../collection-item/collection-item.component';
+import {CollectionItemContainer} from '../collection-item/collection-item.container';
 
 import {CollectionItems} from '../../types'
 
@@ -20,7 +20,7 @@ export const CollectionPreview: React.FC<Props> = ({title, items}) => (
                 items
                     .filter((item, id) => id < 4)
                     .map((item) => (
-                        <CollectionItem key={item.id} item={item}/>
+                        <CollectionItemContainer key={item.id} item={item}/>
                     ))
             }
         </div>
