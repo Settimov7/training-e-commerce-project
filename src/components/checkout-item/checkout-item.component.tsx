@@ -1,14 +1,19 @@
 import React from 'react';
-import {connect, MapDispatchToProps} from 'react-redux';
 
-import {clearItemFromCart, removeItem, addItem} from '../../redux/cart/cart.actions';
+import {addItem, clearItemFromCart, removeItem} from '../../redux/cart/cart.actions';
 
 import {CartItem} from '../../types';
-import {AppState} from '../../redux/types';
 
 import './checkout-item.styles.scss';
 
-const CheckoutItemView: React.FC<Props> = ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
+type Props = {
+    cartItem: CartItem,
+    clearItemFromCart: typeof clearItemFromCart,
+    removeItem: typeof removeItem,
+    addItem: typeof addItem,
+};
+
+export const CheckoutItem: React.FC<Props> = ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
     const { imageUrl, name, quantity, price } = cartItem;
 
     return (
@@ -28,25 +33,3 @@ const CheckoutItemView: React.FC<Props> = ({ cartItem, clearItemFromCart, addIte
         </div>
     );
 };
-
-type OwnProps = {
-    cartItem: CartItem,
-};
-
-type StateProps = {};
-
-type DispatchProps = {
-    clearItemFromCart: typeof clearItemFromCart,
-    removeItem: typeof removeItem,
-    addItem: typeof addItem,
-};
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    clearItemFromCart,
-    removeItem,
-    addItem,
-});
-
-export const CheckoutItem = connect<StateProps, DispatchProps, OwnProps, AppState>(null, mapDispatchToProps)(CheckoutItemView);

@@ -3,7 +3,7 @@ import {connect, DispatchProp} from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import {createStructuredSelector} from 'reselect';
 
-import {CheckoutItem} from '../../components/checkout-item/checkout-item.component';
+import {CheckoutItemContainer} from '../../components/checkout-item/checkout-item.container';
 import {StripeCheckoutButton} from '../../components/stripe-checkout-button/stripe-checkout-button.component';
 
 import {selectCartItems, selectCartTotal} from '../../redux/cart/cart.selectors';
@@ -37,7 +37,7 @@ const CheckoutPageView: React.FC<Props> = ({cartItems, total}) => (
             </div>
         </div>
 
-        { cartItems.map((item) => <CheckoutItem key={item.id} cartItem={item} />)}
+        { cartItems.map((item) => <CheckoutItemContainer key={item.id} cartItem={item} />)}
 
         <div className='total'>
             <span>TOTAL: ${total}</span>
