@@ -6,7 +6,7 @@ export type WithSpinnerProps = {
     isLoading: boolean,
 };
 
-export const WithSpinner = <P extends WithSpinnerProps = WithSpinnerProps>(WrappedComponent: React.ComponentType<P>): React.FC<P & WithSpinnerProps> =>
+export const WithSpinner = <P extends WithSpinnerProps>(WrappedComponent: React.ComponentType<P>): React.FC<P & WithSpinnerProps> =>
     ({isLoading, ...props}) => {
         if (isLoading) {
             return (
