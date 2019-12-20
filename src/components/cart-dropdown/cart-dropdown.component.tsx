@@ -1,21 +1,21 @@
 import React from 'react';
-import {connect, MapDispatchToProps} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
-import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 
 import {CustomButton} from '../custom-button/custom-button.component';
 import {CartItem} from '../cart-item/cart-item.component';
 
-import {selectCartItems} from '../../redux/cart/cart.selectors';
-
 import {toggleCartHidden} from '../../redux/cart/cart.actions';
 
 import {CartItems} from '../../types';
-import {AppState} from '../../redux/types';
 
 import './cart-dropdown.styles.scss';
 
-const CartDropdownView: React.FC<RouteComponentProps & Props> = ({cartItems, history}) => (
+type Props = RouteComponentProps & {
+    cartItems: CartItems,
+    toggleCartHidden: typeof toggleCartHidden,
+}
+
+export const CartDropdown: React.FC<Props> = ({cartItems, history}) => (
     <div className='cart-dropdown'>
         <div className='cart-items'>
             {
@@ -35,31 +35,4 @@ const CartDropdownView: React.FC<RouteComponentProps & Props> = ({cartItems, his
             GO TO CHECKOUT
         </CustomButton>
     </div>
-);
-
-type OwnProps = {};
-
-type StateProps = {
-    cartItems: CartItems,
-};
-
-type DispatchProps = {
-    toggleCartHidden: typeof toggleCartHidden,
-};
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
-    cartItems: selectCartItems,
-});
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    toggleCartHidden,
-});
-
-export const CartDropdown = withRouter(
-    connect<StateProps, DispatchProps, OwnProps, AppState>(
-        mapStateToProps,
-        mapDispatchToProps,
-    )(CartDropdownView)
 );

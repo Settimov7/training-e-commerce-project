@@ -4,10 +4,10 @@ import {createStructuredSelector} from 'reselect';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
-import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.styles';
+import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.styles';
 
 import {CartIcon} from '../cart-icon/cart-icon.component';
-import {CartDropdown} from '../cart-dropdown/cart-dropdown.component';
+import {CartDropdownContainer} from '../cart-dropdown/cart-dropdown.container';
 
 import {selectCurrentUser} from '../../redux/user/user.selectors';
 import {selectCartHidden} from '../../redux/cart/cart.selectors';
@@ -20,7 +20,7 @@ import {User} from '../../redux/user/user.types';
 const HeaderView: React.FC<Props> = ({currentUser, hidden}) => (
     <HeaderContainer>
         <LogoContainer to='/'>
-            <Logo className='logo'/>
+            <Logo className='logo' />
         </LogoContainer>
 
         <OptionsContainer>
@@ -42,7 +42,7 @@ const HeaderView: React.FC<Props> = ({currentUser, hidden}) => (
             <CartIcon />
         </OptionsContainer>
 
-        {hidden || <CartDropdown/>}
+        {hidden || <CartDropdownContainer />}
     </HeaderContainer>
 );
 
