@@ -4,7 +4,7 @@ import {Unsubscribe} from 'firebase';
 
 import {HeaderContainer} from '../header/header.container';
 import {HomePage} from '../../pages/homepage/homepage.component';
-import {ShopPage} from '../../pages/shop/shop.component';
+import {ShopPageContainer} from '../../pages/shop/shop.container';
 import {SignInAndSignUpPage} from '../../pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import {CheckoutPageContainer} from '../../pages/checkout-page/checkout-page.container';
 
@@ -64,7 +64,7 @@ export class App extends React.Component<Props> {
 
                 <Switch>
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/shop' component={ShopPage} />
+                    <Route path='/shop' component={ShopPageContainer} />
                     <Route
                         exact
                         path='/sign-in'

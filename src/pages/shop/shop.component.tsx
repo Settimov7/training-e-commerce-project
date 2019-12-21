@@ -1,14 +1,15 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router';
 import {Route} from 'react-router-dom';
-import {connect, MapDispatchToProps} from 'react-redux';
+import {RouteComponentProps} from 'react-router';
 
 import {CollectionOverviewContainer} from '../../components/collections-overview/collections-overview.container';
 import {CollectionPageContainer} from '../collection-page/collection-page.container';
 
-import {fetchCollectionsStartAsync} from '../../redux/shop/shop.actions';
+type Props = RouteComponentProps & {
+    fetchCollectionsStartAsync: () => void,
+};
 
-class ShopPageView extends React.Component<Props> {
+export class ShopPage extends React.Component<Props> {
     componentDidMount(): void {
         const { fetchCollectionsStartAsync } = this.props;
 
@@ -34,19 +35,4 @@ class ShopPageView extends React.Component<Props> {
         );
     };
 }
-
-type OwnProps = RouteComponentProps;
-
-//TODO: Вроде норм, но кажется, что что-то не так
-type DispatchProps = {
-    fetchCollectionsStartAsync: () => void,
-}
-
-type Props = OwnProps & DispatchProps;
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    fetchCollectionsStartAsync,
-});
-
-export const ShopPage = connect<null, DispatchProps, OwnProps>(null, mapDispatchToProps)(ShopPageView);
 
