@@ -1,6 +1,9 @@
-import styled, {css} from 'styled-components';
+import styled, {css, FlattenSimpleInterpolation} from 'styled-components';
 
-import {Props} from './custom-button.types';
+interface Props {
+    isGoogleSignIn?: boolean,
+    inverted?: boolean,
+}
 
 const buttonStyles = css`
     background-color: black;
@@ -37,7 +40,7 @@ const googleSignInStyles = css`
     }
 `;
 
-const getButtonStyles = ({isGoogleSignIn, inverted}: Props) => {
+const getButtonStyles = ({isGoogleSignIn, inverted}: Props): FlattenSimpleInterpolation => {
     if (isGoogleSignIn) {
         return googleSignInStyles;
     }
