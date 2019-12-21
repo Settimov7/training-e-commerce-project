@@ -1,11 +1,12 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router';
 
-import { HomePageContainer } from './homepage.styles';
-import { Directory } from '../../components/directory/directory.component';
+import {DirectoryContainer} from '../../components/directory/directory.container';
+
+import {HomePageContainer} from './homepage.styles';
 
 export const HomePage: React.FC<RouteComponentProps> = () => (
-	<HomePageContainer>
-		<Directory/>
-	</HomePageContainer>
+    <HomePageContainer>
+        <DirectoryContainer/>
+    </HomePageContainer>
 );
