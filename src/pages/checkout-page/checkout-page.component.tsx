@@ -1,19 +1,19 @@
 import React from 'react';
-import {connect, DispatchProp} from 'react-redux';
-import {RouteComponentProps} from 'react-router';
-import {createStructuredSelector} from 'reselect';
+import {DispatchProp} from 'react-redux';
 
 import {CheckoutItemContainer} from '../../components/checkout-item/checkout-item.container';
 import {StripeCheckoutButton} from '../../components/stripe-checkout-button/stripe-checkout-button.component';
 
-import {selectCartItems, selectCartTotal} from '../../redux/cart/cart.selectors';
-
 import {CartItems} from '../../types';
-import {AppState} from '../../redux/types';
 
 import './checkout-page.styles.scss';
 
-const CheckoutPageView: React.FC<Props> = ({cartItems, total}) => (
+type Props = DispatchProp & {
+    cartItems: CartItems,
+    total: number,
+};
+
+export const CheckoutPage: React.FC<Props> = ({cartItems, total}) => (
     <div className='checkout-page'>
         <div className='checkout-header'>
             <div className='header-block'>
@@ -52,22 +52,4 @@ const CheckoutPageView: React.FC<Props> = ({cartItems, total}) => (
         <StripeCheckoutButton price={total}/>
     </div>
 );
-
-type OwnProps = RouteComponentProps;
-
-type StateProps = {
-    cartItems: CartItems,
-    total: number,
-};
-
-type DispatchProps = DispatchProp;
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>({
-    cartItems: selectCartItems,
-    total: selectCartTotal,
-});
-
-export const CheckoutPage = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps)(CheckoutPageView);
 
