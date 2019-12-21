@@ -2,7 +2,7 @@ import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {Unsubscribe} from 'firebase';
 
-import {Header} from '../header/header.component';
+import {HeaderContainer} from '../header/header.container';
 import {HomePage} from '../../pages/homepage/homepage.component';
 import {ShopPage} from '../../pages/shop/shop.component';
 import {SignInAndSignUpPage} from '../../pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -60,7 +60,7 @@ export class App extends React.Component<Props> {
 
         return (
             <div>
-                <Header />
+                <HeaderContainer />
 
                 <Switch>
                     <Route exact path='/' component={HomePage} />
