@@ -1,11 +1,11 @@
-import {connect, MapStateToProps} from 'react-redux';
+import {connect, DispatchProp, MapStateToProps} from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import {ComponentType} from 'react';
 import {compose} from 'redux';
 
 import {CollectionPage} from './collection-page.component';
 
-import {WithSpinner, WithSpinnerProps} from '../../components/with-spinner/with-spinner.components';
+import {WithSpinner} from '../../components/with-spinner/with-spinner.component';
 
 import {selectCollection, selectIsCollectionsLoaded} from '../../redux/shop/shop.selectors';
 
@@ -20,14 +20,17 @@ type StateProps = {
     isLoading: boolean;
 };
 
-type ConnectProps = OwnProps & StateProps;
-
 const mapStateToProps: MapStateToProps<StateProps, OwnProps, AppState> = (state, ownProps) => ({
     collection: selectCollection(ownProps.match.params.collectionId)(state),
     isLoading: !selectIsCollectionsLoaded(state),
 });
 
-export const CollectionPageContainer = compose<ComponentType<Omit<ConnectProps, keyof WithSpinnerProps>>>(
+type ConnectProps = OwnProps & StateProps & DispatchProp;
+type WithSpinnerResult = ComponentType<ConnectProps>;
+type ConnectWrappedComponent = ComponentType<ConnectProps>;
+type ComposeResult = ComponentType<RouteComponentProps<MatchParams>>;
+
+export const CollectionPageContainer = compose<WithSpinnerResult, ConnectWrappedComponent, ComposeResult>(
     connect<StateProps, null, OwnProps, AppState>(mapStateToProps),
     WithSpinner,
 )(CollectionPage);

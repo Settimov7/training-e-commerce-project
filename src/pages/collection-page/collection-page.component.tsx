@@ -1,13 +1,15 @@
 import React from 'react';
+import {RouteComponentProps} from 'react-router';
 import {DispatchProp} from 'react-redux';
 
 import {CollectionItemContainer} from '../../components/collection-item/collection-item.container';
 
 import {Collection} from '../../redux/shop/shop.types';
+import {MatchParams} from '../shop/shop.types';
 
 import './collection-page.styles.scss';
 
-type Props = DispatchProp & {
+type Props = RouteComponentProps<MatchParams> & DispatchProp & {
     collection: Collection | null,
 };
 
