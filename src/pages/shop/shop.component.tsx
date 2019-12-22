@@ -5,15 +5,17 @@ import {RouteComponentProps} from 'react-router';
 import {CollectionOverviewContainer} from '../../components/collections-overview/collections-overview.container';
 import {CollectionPageContainer} from '../collection-page/collection-page.container';
 
+import {fetchCollectionsStart} from '../../redux/shop/shop.actions';
+
 type Props = RouteComponentProps & {
-    fetchCollectionsStartAsync: () => void,
+    fetchCollectionsStart: typeof fetchCollectionsStart
 };
 
 export class ShopPage extends React.Component<Props> {
     componentDidMount(): void {
-        const { fetchCollectionsStartAsync } = this.props;
+        const { fetchCollectionsStart } = this.props;
 
-        fetchCollectionsStartAsync();
+        fetchCollectionsStart();
     }
 
     render() {

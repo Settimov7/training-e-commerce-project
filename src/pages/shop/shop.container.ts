@@ -3,17 +3,16 @@ import {connect, MapDispatchToProps} from 'react-redux';
 
 import {ShopPage} from './shop.component';
 
-import {fetchCollectionsStartAsync} from '../../redux/shop/shop.actions';
+import {fetchCollectionsStart} from '../../redux/shop/shop.actions';
 
 type OwnProps = RouteComponentProps;
 
-//TODO: Вроде норм, но кажется, что что-то не так
 type DispatchProps = {
-    fetchCollectionsStartAsync: () => void,
+    fetchCollectionsStart: typeof fetchCollectionsStart,
 }
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
-    fetchCollectionsStartAsync,
+    fetchCollectionsStart,
 });
 
 export const ShopPageContainer = connect<null, DispatchProps, OwnProps>(null, mapDispatchToProps)(ShopPage);
