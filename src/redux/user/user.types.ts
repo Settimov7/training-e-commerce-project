@@ -16,7 +16,10 @@ export type UserAction =
     GoogleSignInStartAction
     | EmailSignInStartAction
     | SignInSuccessAction
-    | SignInFailureAction;
+    | SignInFailureAction
+    | SignOutStartAction
+    | SignOutSuccessAction
+    | SignOutFailureAction;
 
 export type GoogleSignInStartAction = {
     type: typeof UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -42,4 +45,17 @@ export type SignInFailureAction = {
 
 export type CheckUserSessionAction = {
     type: typeof UserActionTypes.CHECK_USER_SESSION,
+};
+
+export type SignOutStartAction = {
+    type: typeof UserActionTypes.SIGN_OUT_START,
+};
+
+export type SignOutSuccessAction = {
+    type: typeof UserActionTypes.SIGN_OUT_SUCCESS,
+};
+
+export type SignOutFailureAction = {
+    type: typeof UserActionTypes.SIGN_OUT_FAILURE,
+    payload: Error,
 };

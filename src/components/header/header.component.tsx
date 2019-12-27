@@ -1,5 +1,4 @@
 import React from 'react';
-import {DispatchProp} from 'react-redux';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
@@ -8,15 +7,17 @@ import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './he
 import {CartIconContainer} from '../cart-icon/cart-icon.container';
 import {CartDropdownContainer} from '../cart-dropdown/cart-dropdown.container';
 
-import {auth} from '../../firebase/firebase.utils';
+import {signOutStart} from '../../redux/user/user.actions';
+
 import {User} from '../../redux/user/user.types';
 
-type Props = DispatchProp & {
+type Props = {
     currentUser: User | null,
     hidden: boolean,
+    signOutStart: typeof signOutStart,
 };
 
-export const Header: React.FC<Props> = ({currentUser, hidden}) => (
+export const Header: React.FC<Props> = ({currentUser, hidden, signOutStart}) => (
     <HeaderContainer>
         <LogoContainer to='/'>
             <Logo className='logo' />
@@ -33,7 +34,7 @@ export const Header: React.FC<Props> = ({currentUser, hidden}) => (
 
             {
                 currentUser ?
-                    <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
+                    <OptionLink as='div' onClick={signOutStart}>SIGN OUT</OptionLink>
                     :
                     <OptionLink to='/sign-in'>SIGN IN</OptionLink>
             }

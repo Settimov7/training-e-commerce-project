@@ -5,7 +5,11 @@ import {
     EmailSignInStartAction,
     SignInFailureAction,
     SignInSuccessAction,
-    User, CheckUserSessionAction
+    User,
+    CheckUserSessionAction,
+    SignOutStartAction,
+    SignOutSuccessAction,
+    SignOutFailureAction
 } from './user.types';
 
 export const googleSignInStart = (): GoogleSignInStartAction => ({
@@ -32,4 +36,17 @@ export const signInFailure = (error: Error): SignInFailureAction => ({
 
 export const checkUserSession = (): CheckUserSessionAction => ({
     type: UserActionTypes.CHECK_USER_SESSION,
+});
+
+export const signOutStart = (): SignOutStartAction => ({
+    type: UserActionTypes.SIGN_OUT_START,
+});
+
+export const signOutSuccess = (): SignOutSuccessAction => ({
+    type: UserActionTypes.SIGN_OUT_SUCCESS,
+});
+
+export const signOutFailure = (error: Error): SignOutFailureAction => ({
+    type: UserActionTypes.SIGN_OUT_FAILURE,
+    payload: error,
 });
