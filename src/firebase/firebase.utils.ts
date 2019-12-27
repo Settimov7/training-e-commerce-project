@@ -3,13 +3,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 import {Collection, Collections} from '../redux/shop/shop.types';
-
-type DocumentReference = firebase.firestore.DocumentReference;
-type QuerySnapshot = firebase.firestore.QuerySnapshot;
-
-type AdditionalInfo = {
-    [key: string]: any;
-}
+import {AdditionalInfo, DocumentReference, QuerySnapshot} from './firebase.types';
 
 const config = {
     apiKey: "AIzaSyC2eXnCYvgI9s1VmCYPQh1NSMELQDzrlHI",
@@ -22,14 +16,14 @@ const config = {
 };
 
 export const createUserProfileDocument = async (userAuth: User | null, additionalInfo?: AdditionalInfo): Promise<DocumentReference | undefined> => {
-    if(!userAuth) return;
+    if (!userAuth) return;
 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
 
     const snapshot = await userRef.get();
 
-    if(!snapshot.exists) {
-        const { displayName, email } = userAuth;
+    if (!snapshot.exists) {
+        const {displayName, email} = userAuth;
         const createdAt = new Date();
 
         try {
@@ -49,7 +43,7 @@ export const createUserProfileDocument = async (userAuth: User | null, additiona
 
 export const convertCollectionsSnapshotToMap = (collections: QuerySnapshot): Collections => {
     const transformedCollection: ReadonlyArray<Collection> = collections.docs.map((doc) => {
-        const { title, items } = doc.data();
+        const {title, items} = doc.data();
 
         return {
             routeName: encodeURI(title.toLowerCase()),
@@ -71,9 +65,7 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({prompt: 'select_account'});
 
 export default firebase;

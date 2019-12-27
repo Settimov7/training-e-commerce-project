@@ -1,9 +1,11 @@
-import { all, call } from 'redux-saga/effects';
+import {all, call} from 'redux-saga/effects';
 
-import { fetchCollectionsStart } from './shop/shop.sagas';
+import {fetchCollectionsStart} from './shop/shop.sagas';
+import {userSaga} from './user/user.sagas';
 
 export function* rootSaga() {
-  yield all([
-      call(fetchCollectionsStart),
-  ]);
+    yield all([
+        call(fetchCollectionsStart),
+        call(userSaga),
+    ]);
 }

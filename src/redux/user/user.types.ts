@@ -2,6 +2,7 @@ import {UserActionTypes} from './user.action-types';
 
 export type UserState = {
     currentUser: User | null,
+    error: Error | null,
 };
 
 export type User = {
@@ -11,9 +12,30 @@ export type User = {
     createdAt: Date,
 }
 
-export type UserAction = SetCurrentUserAction;
+export type UserAction =
+    GoogleSignInStartAction
+    | EmailSignInStartAction
+    | SignInSuccessAction
+    | SignInFailureAction;
 
-export type SetCurrentUserAction = {
-    type:  typeof UserActionTypes.SET_CURRENT_USER,
-    payload: User | null
-}
+export type GoogleSignInStartAction = {
+    type: typeof UserActionTypes.GOOGLE_SIGN_IN_START,
+};
+
+export type EmailSignInStartAction = {
+    type: typeof UserActionTypes.EMAIL_SIGN_IN_START,
+    payload: {
+        email: string,
+        password: string,
+    },
+};
+
+export type SignInSuccessAction = {
+    type: typeof UserActionTypes.SIGN_IN_SUCCESS,
+    payload: User,
+};
+
+export type SignInFailureAction = {
+    type: typeof UserActionTypes.SIGN_IN_FAILURE,
+    payload: Error,
+};

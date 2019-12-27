@@ -1,6 +1,6 @@
 import React from 'react';
+import {DispatchProp} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
-import {Unsubscribe} from 'firebase';
 
 import {HeaderContainer} from '../header/header.container';
 import {HomePage} from '../../pages/homepage/homepage.component';
@@ -8,71 +8,27 @@ import {ShopPageContainer} from '../../pages/shop/shop.container';
 import {SignInAndSignUpPage} from '../../pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import {CheckoutPageContainer} from '../../pages/checkout-page/checkout-page.container';
 
-import {setCurrentUser} from '../../redux/user/user.actions';
-
-import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
-
 import {User} from '../../redux/user/user.types';
 
 import './app.styles.scss';
 
-type Props = {
+type Props = DispatchProp & {
     currentUser: User | null
-    setCurrentUser: typeof setCurrentUser,
 };
 
-export class App extends React.Component<Props> {
-    unsubscribeFromAuth: Unsubscribe | null = null;
+export const App: React.FC<Props> = ({currentUser}) => (
+    <div>
+        <HeaderContainer/>
 
-    componentDidMount(): void {
-        const {setCurrentUser} = this.props;
-
-        this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-            if (userAuth) {
-                const userRef = await createUserProfileDocument(userAuth);
-
-                userRef && userRef.onSnapshot((snapshot) => {
-                    const data = snapshot.data();
-
-                    if (data) {
-                        const {displayName, email, createdAt} = data;
-
-                        setCurrentUser({
-                            id: snapshot.id,
-                            displayName,
-                            email,
-                            createdAt: createdAt.toDate(),
-                        })
-                    }
-                })
-            }
-
-            setCurrentUser(null)
-        })
-    }
-
-    componentWillUnmount(): void {
-        this.unsubscribeFromAuth && this.unsubscribeFromAuth();
-    }
-
-    render() {
-        const {currentUser} = this.props;
-
-        return (
-            <div>
-                <HeaderContainer />
-
-                <Switch>
-                    <Route exact path='/' component={HomePage} />
-                    <Route path='/shop' component={ShopPageContainer} />
-                    <Route
-                        exact
-                        path='/sign-in'
-                        render={() => currentUser ? <Redirect to={'/'} /> : <SignInAndSignUpPage />}
-                    />
-                    <Route exact path='/checkout' component={CheckoutPageContainer} />
-                </Switch>
-            </div>
-        );
-    }
-}
+        <Switch>
+            <Route exact path='/' component={HomePage}/>
+            <Route path='/shop' component={ShopPageContainer}/>
+            <Route
+                exact
+                path='/sign-in'
+                render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
+            />
+            <Route exact path='/checkout' component={CheckoutPageContainer}/>
+        </Switch>
+    </div>
+);
