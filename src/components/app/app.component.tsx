@@ -1,5 +1,4 @@
 import React from 'react';
-import {DispatchProp} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {HeaderContainer} from '../header/header.container';
@@ -8,27 +7,42 @@ import {ShopPageContainer} from '../../pages/shop/shop.container';
 import {SignInAndSignUpPage} from '../../pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import {CheckoutPageContainer} from '../../pages/checkout-page/checkout-page.container';
 
+import {checkUserSession} from '../../redux/user/user.actions';
+
 import {User} from '../../redux/user/user.types';
 
 import './app.styles.scss';
 
-type Props = DispatchProp & {
-    currentUser: User | null
+type Props = {
+    currentUser: User | null,
+    checkUserSession: typeof checkUserSession,
 };
 
-export const App: React.FC<Props> = ({currentUser}) => (
-    <div>
-        <HeaderContainer/>
+export class App extends React.Component<Props> {
+    componentDidMount(): void {
+        const {checkUserSession} = this.props;
 
-        <Switch>
-            <Route exact path='/' component={HomePage}/>
-            <Route path='/shop' component={ShopPageContainer}/>
-            <Route
-                exact
-                path='/sign-in'
-                render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
-            />
-            <Route exact path='/checkout' component={CheckoutPageContainer}/>
-        </Switch>
-    </div>
-);
+        checkUserSession();
+    }
+
+    render() {
+        const {currentUser} = this.props;
+
+        return (
+            <div>
+                <HeaderContainer/>
+
+                <Switch>
+                    <Route exact path='/' component={HomePage}/>
+                    <Route path='/shop' component={ShopPageContainer}/>
+                    <Route
+                        exact
+                        path='/sign-in'
+                        render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
+                    />
+                    <Route exact path='/checkout' component={CheckoutPageContainer}/>
+                </Switch>
+            </div>
+        );
+    }
+}

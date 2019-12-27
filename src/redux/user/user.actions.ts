@@ -5,7 +5,7 @@ import {
     EmailSignInStartAction,
     SignInFailureAction,
     SignInSuccessAction,
-    User
+    User, CheckUserSessionAction
 } from './user.types';
 
 export const googleSignInStart = (): GoogleSignInStartAction => ({
@@ -28,4 +28,8 @@ export const signInSuccess = (user: User): SignInSuccessAction => ({
 export const signInFailure = (error: Error): SignInFailureAction => ({
     type: UserActionTypes.SIGN_IN_FAILURE,
     payload: error,
+});
+
+export const checkUserSession = (): CheckUserSessionAction => ({
+    type: UserActionTypes.CHECK_USER_SESSION,
 });

@@ -39,3 +39,7 @@ export type SignInFailureAction = {
     type: typeof UserActionTypes.SIGN_IN_FAILURE,
     payload: Error,
 };
+
+export type CheckUserSessionAction = {
+    type: typeof UserActionTypes.CHECK_USER_SESSION,
+};
