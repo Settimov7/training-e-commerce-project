@@ -1,4 +1,10 @@
-import {AddItemAction, ClearItemFromCartAction, RemoveItemAction, ToggleCartHiddenAction} from './cart.types';
+import {
+    AddItemAction,
+    ClearCart,
+    ClearItemFromCartAction,
+    RemoveItemAction,
+    ToggleCartHiddenAction
+} from './cart.types';
 import {CartActionTypes} from './cart.action-types';
 import {CollectionItem} from '../../types';
 
@@ -20,4 +26,8 @@ export const removeItem = (item: CollectionItem): RemoveItemAction => ({
 export const clearItemFromCart = (item: CollectionItem): ClearItemFromCartAction => ({
     type: CartActionTypes.CLEAR_ITEM_FROM_CART,
     payload: item,
+});
+
+export const clearCart = (): ClearCart => ({
+    type: CartActionTypes.CLEAR_CART,
 });
