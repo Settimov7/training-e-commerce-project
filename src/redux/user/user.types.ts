@@ -1,4 +1,7 @@
+import {User as FirebaseUser} from 'firebase';
+
 import {UserActionTypes} from './user.action-types';
+import {AdditionalInfo} from '../../firebase/firebase.types';
 
 export type UserState = {
     currentUser: User | null,
@@ -12,6 +15,12 @@ export type User = {
     createdAt: Date,
 }
 
+export type UserCredentials = {
+    email: string,
+    password: string,
+    displayName: string,
+};
+
 export type UserAction =
     GoogleSignInStartAction
     | EmailSignInStartAction
@@ -19,7 +28,10 @@ export type UserAction =
     | SignInFailureAction
     | SignOutStartAction
     | SignOutSuccessAction
-    | SignOutFailureAction;
+    | SignOutFailureAction
+    | SignUpStartAction
+    | SignUpSuccessAction
+    | SignUpFailureAction;
 
 export type GoogleSignInStartAction = {
     type: typeof UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -57,5 +69,23 @@ export type SignOutSuccessAction = {
 
 export type SignOutFailureAction = {
     type: typeof UserActionTypes.SIGN_OUT_FAILURE,
+    payload: Error,
+};
+
+export type SignUpStartAction = {
+    type: typeof UserActionTypes.SIGN_UP_START,
+    payload: UserCredentials,
+};
+
+export type SignUpSuccessAction = {
+    type: typeof UserActionTypes.SIGN_UP_SUCCESS,
+    payload: {
+        user: FirebaseUser,
+        additionalInfo?: AdditionalInfo
+    }
+};
+
+export type SignUpFailureAction = {
+    type: typeof UserActionTypes.SIGN_UP_FAILURE,
     payload: Error,
 };

@@ -1,3 +1,4 @@
+import {User as FirebaseUser} from 'firebase';
 import {UserActionTypes} from './user.action-types';
 
 import {
@@ -5,12 +6,17 @@ import {
     EmailSignInStartAction,
     SignInFailureAction,
     SignInSuccessAction,
-    User,
     CheckUserSessionAction,
     SignOutStartAction,
     SignOutSuccessAction,
-    SignOutFailureAction
+    SignOutFailureAction,
+    SignUpStartAction,
+    SignUpSuccessAction,
+    SignUpFailureAction,
+    User,
+    UserCredentials,
 } from './user.types';
+import {AdditionalInfo} from "../../firebase/firebase.types";
 
 export const googleSignInStart = (): GoogleSignInStartAction => ({
     type: UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -48,5 +54,23 @@ export const signOutSuccess = (): SignOutSuccessAction => ({
 
 export const signOutFailure = (error: Error): SignOutFailureAction => ({
     type: UserActionTypes.SIGN_OUT_FAILURE,
+    payload: error,
+});
+
+export const signUpStart = (userCredentials: UserCredentials): SignUpStartAction => ({
+    type: UserActionTypes.SIGN_UP_START,
+    payload: userCredentials,
+});
+
+export const signUpSuccess = (user: FirebaseUser, additionalInfo?: AdditionalInfo): SignUpSuccessAction => ({
+    type: UserActionTypes.SIGN_UP_SUCCESS,
+    payload: {
+        user,
+        additionalInfo,
+    }
+});
+
+export const signUpFailure = (error: Error): SignUpFailureAction => ({
+    type: UserActionTypes.SIGN_UP_FAILURE,
     payload: error,
 });
