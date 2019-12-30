@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {FormInput} from '../form-input/form-input.component';
 import {CustomButton} from '../custom-button/custom-button.component';
@@ -12,75 +12,65 @@ type Props = {
     emailSignInStart: typeof emailSignInStart;
 };
 
-type State = {
+type UserCredentials = {
     email: string,
     password: string,
 };
 
-export class SignIn extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
+const DEFAULT_USER_CREDENTIALS: UserCredentials = {
+    email: '',
+    password: '',
+};
 
-        this.state = {
-            email: '',
-            password: '',
-        }
-    }
+export const SignIn: React.FC<Props> = ({googleSignInStart, emailSignInStart}) => {
+    const [{email, password}, setUserCredentials] = useState<UserCredentials>(DEFAULT_USER_CREDENTIALS);
 
-    handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
-
-        const {emailSignInStart} = this.props;
-        const {email, password} = this.state;
 
         emailSignInStart(email, password);
     };
 
-    handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const {value, name} = event.target;
 
-        this.setState((prevState) => ({
-            ...prevState,
+        setUserCredentials((prevUserCredentials) => ({
+            ...prevUserCredentials,
             [name]: value,
         }));
     };
 
-    render() {
-        const {googleSignInStart} = this.props;
-        const {email, password} = this.state;
+    return (
+        <div className='sign-in'>
+            <h2>I already have an account</h2>
+            <span>Sign in with your email and password</span>
 
-        return (
-            <div className='sign-in'>
-                <h2>I already have an account</h2>
-                <span>Sign in with your email and password</span>
+            <form onSubmit={handleSubmit}>
+                <FormInput
+                    name='email'
+                    type='email'
+                    value={email}
+                    required
+                    handleChange={handleChange}
+                    label='Email'
+                />
 
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        name='email'
-                        type='email'
-                        value={email}
-                        required
-                        handleChange={this.handleChange}
-                        label='Email'
-                    />
+                <FormInput
+                    name='password'
+                    type='password'
+                    value={password}
+                    required
+                    handleChange={handleChange}
+                    label='Password'
+                />
 
-                    <FormInput
-                        name='password'
-                        type='password'
-                        value={password}
-                        required
-                        handleChange={this.handleChange}
-                        label='Password'
-                    />
-
-                    <div className='buttons'>
-                        <CustomButton type='submit'>Sign In</CustomButton>
-                        <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>
-                            Sign in with Google
-                        </CustomButton>
-                    </div>
-                </form>
-            </div>
-        )
-    }
-}
+                <div className='buttons'>
+                    <CustomButton type='submit'>Sign In</CustomButton>
+                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>
+                        Sign in with Google
+                    </CustomButton>
+                </div>
+            </form>
+        </div>
+    );
+};
