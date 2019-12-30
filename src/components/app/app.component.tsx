@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {HeaderContainer} from '../header/header.container';
@@ -18,31 +18,25 @@ type Props = {
     checkUserSession: typeof checkUserSession,
 };
 
-export class App extends React.Component<Props> {
-    componentDidMount(): void {
-        const {checkUserSession} = this.props;
-
+export const App: React.FC<Props> = ({currentUser, checkUserSession}) => {
+    useEffect(() => {
         checkUserSession();
-    }
+    }, [checkUserSession]);
 
-    render() {
-        const {currentUser} = this.props;
+    return (
+        <div>
+            <HeaderContainer />
 
-        return (
-            <div>
-                <HeaderContainer/>
-
-                <Switch>
-                    <Route exact path='/' component={HomePage}/>
-                    <Route path='/shop' component={ShopPageContainer}/>
-                    <Route
-                        exact
-                        path='/sign-in'
-                        render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
-                    />
-                    <Route exact path='/checkout' component={CheckoutPageContainer}/>
-                </Switch>
-            </div>
-        );
-    }
-}
+            <Switch>
+                <Route exact path='/' component={HomePage} />
+                <Route path='/shop' component={ShopPageContainer} />
+                <Route
+                    exact
+                    path='/sign-in'
+                    render={() => currentUser ? <Redirect to={'/'} /> : <SignInAndSignUpPage />}
+                />
+                <Route exact path='/checkout' component={CheckoutPageContainer} />
+            </Switch>
+        </div>
+    );
+};
