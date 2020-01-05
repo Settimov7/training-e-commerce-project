@@ -3,8 +3,7 @@ import React from 'react';
 import {CollectionItemContainer} from '../collection-item/collection-item.container';
 
 import {CollectionItems} from '../../types'
-
-import './collection-preview.styles.scss';
+import {CollectionPreviewContainer, PreviewContainer, TitleContainer} from './collection-preview.styles';
 
 type Props = {
     title: string,
@@ -12,17 +11,17 @@ type Props = {
 }
 
 export const CollectionPreview: React.FC<Props> = ({title, items}) => (
-    <div className='collection-preview'>
-        <h1 className='title'>{title.toUpperCase()}</h1>
+    <CollectionPreviewContainer>
+        <TitleContainer>
+            {title.toUpperCase()}
+        </TitleContainer>
 
-        <div className='preview'>
-            {
-                items
-                    .filter((item, id) => id < 4)
-                    .map((item) => (
-                        <CollectionItemContainer key={item.id} item={item}/>
-                    ))
-            }
-        </div>
-    </div>
+        <PreviewContainer>
+            {items
+                .filter((item, idx) => idx < 4)
+                .map(item => (
+                    <CollectionItemContainer key={item.id} item={item}/>
+                ))}
+        </PreviewContainer>
+    </CollectionPreviewContainer>
 );
