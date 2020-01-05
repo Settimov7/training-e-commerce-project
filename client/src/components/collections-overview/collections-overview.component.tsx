@@ -15,8 +15,8 @@ export type Props = RouteComponentProps & DispatchProp & {
 export const CollectionsOverview: React.FC<Props> = ({collections}) => (
     <div className='collections-overview'>
         {
-            collections.map(({id, title, items}) => (
-                <CollectionPreview key={id} title={title} items={items} />
+            collections.map(({id, title, items, routeName}) => (
+                <CollectionPreview key={id} title={title} items={items} routeName={routeName}/>
             ))
         }
     </div>

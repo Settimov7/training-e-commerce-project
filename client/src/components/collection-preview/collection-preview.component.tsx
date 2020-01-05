@@ -1,18 +1,20 @@
 import React from 'react';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 import {CollectionItemContainer} from '../collection-item/collection-item.container';
 
 import {CollectionItems} from '../../types'
 import {CollectionPreviewContainer, PreviewContainer, TitleContainer} from './collection-preview.styles';
 
-type Props = {
+type Props = RouteComponentProps & {
     title: string,
     items: CollectionItems,
+    routeName: string,
 }
 
-export const CollectionPreview: React.FC<Props> = ({title, items}) => (
+const CollectionPreviewComponent: React.FC<Props> = ({title, items, history, match, routeName}) => (
     <CollectionPreviewContainer>
-        <TitleContainer>
+        <TitleContainer onClick={() => history.push(`${match.path}/${routeName}`)}>
             {title.toUpperCase()}
         </TitleContainer>
 
@@ -25,3 +27,5 @@ export const CollectionPreview: React.FC<Props> = ({title, items}) => (
         </PreviewContainer>
     </CollectionPreviewContainer>
 );
+
+export const CollectionPreview = withRouter(CollectionPreviewComponent);
