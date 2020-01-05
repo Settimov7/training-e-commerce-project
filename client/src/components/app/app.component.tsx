@@ -11,7 +11,7 @@ import {checkUserSession} from '../../redux/user/user.actions';
 
 import {User} from '../../redux/user/user.types';
 
-import './app.styles.scss';
+import {GlobalStyle} from '../../global.styles';
 
 type Props = {
     currentUser: User | null,
@@ -25,17 +25,19 @@ export const App: React.FC<Props> = ({currentUser, checkUserSession}) => {
 
     return (
         <div>
-            <HeaderContainer />
+            <GlobalStyle />
+
+            <HeaderContainer/>
 
             <Switch>
-                <Route exact path='/' component={HomePage} />
-                <Route path='/shop' component={ShopPageContainer} />
+                <Route exact path='/' component={HomePage}/>
+                <Route path='/shop' component={ShopPageContainer}/>
                 <Route
                     exact
                     path='/sign-in'
-                    render={() => currentUser ? <Redirect to={'/'} /> : <SignInAndSignUpPage />}
+                    render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
                 />
-                <Route exact path='/checkout' component={CheckoutPageContainer} />
+                <Route exact path='/checkout' component={CheckoutPageContainer}/>
             </Switch>
         </div>
     );
