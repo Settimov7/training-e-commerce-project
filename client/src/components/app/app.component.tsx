@@ -3,6 +3,7 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {Spinner} from '../spinner/spinner.component';
 import {HeaderContainer} from '../header/header.container';
+import {ErrorBoundary} from '../error-boundary/error-boundary.component';
 
 import {checkUserSession} from '../../redux/user/user.actions';
 
@@ -32,19 +33,21 @@ export const App: React.FC<Props> = ({currentUser, checkUserSession}) => {
             <HeaderContainer/>
 
             <Switch>
-                <Suspense fallback={<Spinner/>}>
-                    <Route exact path='/' component={HomePage}/>
+                <ErrorBoundary>
+                    <Suspense fallback={<Spinner/>}>
+                        <Route exact path='/' component={HomePage}/>
 
-                    <Route path='/shop' component={ShopPage}/>
+                        <Route path='/shop' component={ShopPage}/>
 
-                    <Route
-                        exact
-                        path='/sign-in'
-                        render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
-                    />
+                        <Route
+                            exact
+                            path='/sign-in'
+                            render={() => currentUser ? <Redirect to={'/'}/> : <SignInAndSignUpPage/>}
+                        />
 
-                    <Route exact path='/checkout' component={CheckoutPage}/>
-                </Suspense>
+                        <Route exact path='/checkout' component={CheckoutPage}/>
+                    </Suspense>
+                </ErrorBoundary>
             </Switch>
         </div>
     );
