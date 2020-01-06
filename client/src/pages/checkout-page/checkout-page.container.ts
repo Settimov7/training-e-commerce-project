@@ -21,4 +21,4 @@ const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>
     total: selectCartTotal,
 });
 
-export const CheckoutPageContainer = connect<StateProps, null, OwnProps, AppState>(mapStateToProps)(CheckoutPage);
+export default connect<StateProps, null, OwnProps, AppState>(mapStateToProps)(CheckoutPage);

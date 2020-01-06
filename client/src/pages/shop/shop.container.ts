@@ -15,4 +15,4 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
     fetchCollectionsStart,
 });
 
-export const ShopPageContainer = connect<null, DispatchProps, OwnProps>(null, mapDispatchToProps)(ShopPage);
+export default connect<null, DispatchProps, OwnProps>(null, mapDispatchToProps)(ShopPage);

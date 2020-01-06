@@ -5,10 +5,12 @@ import {SignUpContainer} from '../../components/sign-up/sign-up.container';
 
 import './sign-in-and-sign-up.styles.scss';
 
-export const SignInAndSignUpPage: React.FC = () => (
+const SignInAndSignUpPage: React.FC = () => (
     <div className='sign-in-and-sign-up'>
         <SignInContainer />
 
         <SignUpContainer />
     </div>
 );
+
+export default SignInAndSignUpPage;

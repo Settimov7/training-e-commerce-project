@@ -5,8 +5,10 @@ import {DirectoryContainer} from '../../components/directory/directory.container
 
 import {HomePageContainer} from './homepage.styles';
 
-export const HomePage: React.FC<RouteComponentProps> = () => (
+const HomePage: React.FC<RouteComponentProps> = () => (
     <HomePageContainer>
         <DirectoryContainer/>
     </HomePageContainer>
 );
+
+export default HomePage;
