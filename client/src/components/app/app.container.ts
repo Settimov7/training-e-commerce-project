@@ -16,7 +16,7 @@ type StateProps = {
     currentUser: User | null
 };
 
-type DispatchToProps = {
+type DispatchProps = {
     checkUserSession: typeof checkUserSession,
 };
 
@@ -24,8 +24,8 @@ const mapStateToProps = createStructuredSelector<AppState, OwnProps, StateProps>
     currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps: MapDispatchToProps<DispatchToProps, OwnProps> = ({
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = ({
    checkUserSession,
 });
 
-export const AppContainer = connect<StateProps, DispatchToProps, OwnProps, AppState>(mapStateToProps, mapDispatchToProps)(App);
+export const AppContainer = connect<StateProps, DispatchProps, OwnProps, AppState>(mapStateToProps, mapDispatchToProps)(App);
